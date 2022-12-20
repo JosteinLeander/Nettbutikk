@@ -8,7 +8,8 @@
     <title>OldToys</title>
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
-    <script>
+    <script src="https://kit.fontawesome.com/3915fb5545.js"
+    crossorigin="anonymous">
         // Import the functions you need from the SDKs you need
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -32,19 +33,23 @@
 </head>
 <body>
     <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#products">Produkter</a></li>
-        <li><a href="#contact">Kontakt oss</a></li>
-        <li style="float:right"><a class="active" href="LoggInn.html">Logg inn</a></li>
+        <li><i
+        class="fa-brands fa-mandalorian"
+        style="font-size: 50px; color: white"></i></li>
+        <li><a class="active" href="../index.html">Home</a></li>
+        <li><a href="Products.html">Produkter</a></li>
+        <li style="float: right;"><i class="fa-solid fa-cart-plus" onclick="handlekurv()" id="Cart" style="font-size: 35px; color: white;"></i></li>
+        <li style="float:right"><a href="LoggInn.html">Logg inn</a></li>
+        <input type="text" placeholder="Søk..." id="Search" style="float: right; height: 40px; width: 250px;">
       </ul>
     <div class="main">
-        <h1>Playstation Konsoller</h1>
+        <h1>Sega Konsoller</h1>
         <h2>Klikk på bildet for å legge i handlekurv</h2>
         <div class="grid-container">
-            <div class="grid-item"><img id="img1" class="myimg" src="/bilder/Playstation1.png" alt="PS1"> Consoles <div class="middle"> <div class="morebutton" id="PS1button"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/Playstation2" alt="SLogo"> <div class="middle"> <div class="morebutton" id="Sbutton"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/PS3.jpeg" alt="NLogo"> <div class="middle"> <div class="morebutton" id="Nbutton"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/PS4.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img1" class="myimg" src="/bilder/SegaGenesis" alt="PS1"> Consoles <div class="middle"> <div class="morebutton" id="PS1button"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/SegaSaturn.jpeg" alt="SLogo"> <div class="middle"> <div class="morebutton" id="Sbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/SegaGameGear.jpeg" alt="NLogo"> <div class="middle"> <div class="morebutton" id="Nbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/SegaMaster.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
         </div>
     </div>
     <footer class="footer">

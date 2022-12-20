@@ -1,3 +1,12 @@
+
+.sidenav {
+  width: 25px;
+}
+
+ol {
+  text-align: center;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -32,6 +41,10 @@ body {
 }
 
 h1 {
+  text-align: center;
+}
+
+h2 {
   text-align: center;
 }
 
