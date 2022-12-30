@@ -35,10 +35,33 @@
     <ul>
         <li><i
         class="fa-brands fa-mandalorian"
-        style="font-size: 50px; color: white"></i></li>
-        <li><a href="../index.html">Home</a></li>
-        <li><a class="active" href="Products.html">Produkter</a></li>
-        <li style="float: right;"><i class="fa-solid fa-cart-plus" id="Cart" style="font-size: 35px; color: white;"></i></li>
+        style="font-size: 50px; color: black"></i></li>
+        <li><a class="active" href="../index.html">Home</a></li>
+        <li><a href="Products.html">Produkter</a></li>
+        <li style="float: right">
+            <button id="myBtn">
+              <i
+                class="fa-solid fa-cart-plus"
+                id="Cart"
+                style="font-size: 35px; color: black"
+              ></i>
+            </button>
+          </li>
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <span class="close">&times;</span>
+                  <h2>Handlekurv</h2>
+                </div>
+                <div class="modal-body">
+                  <p>Produkt</p>
+                  <p>Betal</p>
+                </div>
+                <div class="modal-footer">
+                  <h3>Lignende produkter</h3>
+                </div>
+            </div>
+          </div>
         <li style="float:right"><a href="LoggInn.html">Logg inn</a></li>
         <input type="text" placeholder="Søk..." id="Search" style="float: right; height: 40px; width: 250px;">
       </ul>
@@ -50,11 +73,15 @@
             <div class="grid-item"><img id="img2" class="myimg" src="../bilder/GameBoyColor" alt="SLogo"> <div class="middle"> <div class="morebutton" id="Sbutton"><button>more</button></div> </div></div>
             <div class="grid-item"><img id="img3" class="myimg" src="../bilder/NintendoDS.jpeg" alt="NLogo"> <div class="middle"> <div class="morebutton" id="Nbutton"><button>more</button></div> </div></div>
             <div class="grid-item"><img id="img4" class="myimg" src="../bilder/NintendoGameCube.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/NES.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/WII.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
+            <div class="grid-item"><img id="img2" class="myimg" src="/bilder/WIIU.jpeg" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
         </div>
     </div>
     <footer class="footer">
         <p><a href="mailto:jlelangmo@gmail.com"> jlelangmo </a>
-            <a href="https://discord.gg/GxvDAptdMX"> <img id="bildeserver" src="../bilder/discord-logo.jpg" style="width: 100px;"></img></a></p>
+            <a href="https://discord.gg/GxvDAptdMX">Support</a></p>
+
     </footer>
 
     <script src="../js/script.js"></script>
