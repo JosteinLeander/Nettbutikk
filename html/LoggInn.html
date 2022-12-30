@@ -4,10 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="*width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/3915fb5545.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+    <script src="https://kit.fontawesome.com/3915fb5545.js"
+    crossorigin="anonymous">
+        // Import the functions you need from the SDKs you need
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDGgJNE_Rz8CMCKf9y2rqkd04ZchGvkxmQ",
+          authDomain: "folge-kurs.firebaseapp.com",
+          projectId: "folge-kurs",
+          storageBucket: "folge-kurs.appspot.com",
+          messagingSenderId: "219823588472",
+          appId: "1:219823588472:web:06330a282eed10bd1d598d",
+          measurementId: "G-FC16KEX2GL"
+        };
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db=firebase.firestore();
+      </script>
     <link rel="stylesheet" href="/css/login.css" />
     <title>OldToys logg inn</title>
   </head>

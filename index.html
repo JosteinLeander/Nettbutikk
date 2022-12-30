@@ -1,70 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="*width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="*width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
     <title>OldToys</title>
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
-    <script src="https://kit.fontawesome.com/3915fb5545.js"
-    crossorigin="anonymous">
-        // Import the functions you need from the SDKs you need
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyDGgJNE_Rz8CMCKf9y2rqkd04ZchGvkxmQ",
-          authDomain: "folge-kurs.firebaseapp.com",
-          projectId: "folge-kurs",
-          storageBucket: "folge-kurs.appspot.com",
-          messagingSenderId: "219823588472",
-          appId: "1:219823588472:web:06330a282eed10bd1d598d",
-          measurementId: "G-FC16KEX2GL"
-        };
-      
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db=firebase.firestore();
-      </script>
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/3915fb5545.js"
+      crossorigin="anonymous"
+    >
+      // Import the functions you need from the SDKs you need
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDGgJNE_Rz8CMCKf9y2rqkd04ZchGvkxmQ",
+        authDomain: "folge-kurs.firebaseapp.com",
+        projectId: "folge-kurs",
+        storageBucket: "folge-kurs.appspot.com",
+        messagingSenderId: "219823588472",
+        appId: "1:219823588472:web:06330a282eed10bd1d598d",
+        measurementId: "G-FC16KEX2GL"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db=firebase.firestore();
+    </script>
+  </head>
+  <body>
     <ul>
-        <li><i
-        class="fa-brands fa-mandalorian"
-        style="font-size: 50px; color: white"></i></li>
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="html/Products.html">Produkter</a></li>
-        <li style="float: right;"><i class="fa-solid fa-cart-plus" onclick="handlekurv()" id="Cart" style="font-size: 35px; color: white;"></i></li>
-        <li style="float:right"><a href="html/LoggInn.html">Logg inn</a></li>
-        <input type="text" placeholder="Søk..." id="Search" style="float: right; height: 40px; width: 250px;">
-      </ul>
+      <li>
+        <i
+          class="fa-brands fa-mandalorian"
+          style="font-size: 50px; color: black"
+        ></i>
+      </li>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="html/Products.html">Produkter</a></li>
+      <li style="float: right">
+        <button id="myBtn">
+          <i
+            class="fa-solid fa-cart-plus"
+            id="Cart"
+            style="font-size: 35px; color: black"
+          ></i>
+        </button>
+      </li>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Handlekurv</h2>
+            </div>
+            <div class="modal-body">
+              <p>Produkt</p>
+              <p>Betal</p>
+            </div>
+            <div class="modal-footer">
+              <h3>Lignende produkter</h3>
+            </div>
+        </div>
+      </div>
+      <li style="float: right"><a href="html/LoggInn.html">Logg inn</a></li>
+      <input
+        type="text"
+        placeholder="Søk..."
+        id="Search"
+        style="float: right; height: 40px; width: 250px"
+      />
+    </ul>
     <div class="main">
-        <h1>Welcome to Old Toys</h1>
-        <div class="sidenav">
-            <ol>
-                <h3>Mest solgte</h3>
-                <li>Xbox360E</li>
-                <li>NintendoDS</li>
-                <li>SegaGenesis</li>
-                <li>PS1</li>
-            </ol>
+      <h1>Welcome to Old Toys</h1>
+      <hr />
+      <div class="sidenav">
+        <ol>
+          <h3>Mest solgte</h3>
+          <li>Xbox360E</li>
+          <li>NintendoDS</li>
+          <li>SegaGenesis</li>
+          <li>PS1</li>
+        </ol>
+      </div>
+      <div class="grid-container">
+        <div class="grid-item">
+          <img
+            id="img1"
+            class="myimg"
+            src="bilder/PlaystationLogo.jpg"
+            alt="PSLogo"
+          />
+          Consoles
+          <div class="middle">
+            <div class="morebutton" id="PSbutton"><button>more</button></div>
+          </div>
         </div>
-        <div class="grid-container">
-            <div class="grid-item"><img id="img1" class="myimg" src="bilder/PlaystationLogo.jpg" alt="PSLogo"> Consoles <div class="middle"> <div class="morebutton" id="PSbutton"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="bilder/SegaLogo.png" alt="SLogo"> <div class="middle"> <div class="morebutton" id="Sbutton"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="bilder/NintendoLogo" alt="NLogo"> <div class="middle"> <div class="morebutton" id="Nbutton"><button>more</button></div> </div></div>
-            <div class="grid-item"><img id="img2" class="myimg" src="bilder/XboxLogo" alt="XLogo"> <div class="middle"> <div class="morebutton" id="Xbutton"><button>more</button></div> </div></div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="bilder/SegaLogo.png" alt="SLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Sbutton"><button>more</button></div>
+          </div>
         </div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="bilder/NintendoLogo" alt="NLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Nbutton"><button>more</button></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="bilder/XboxLogo" alt="XLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Xbutton"><button>more</button></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <hr />
     <footer class="footer">
-        <p><a href="mailto:jlelangmo@gmail.com"> jlelangmo </a>
-            <a href="https://discord.gg/GxvDAptdMX"> <img id="bildeserver" src="bilder/discord-logo.jpg" style="width: 100px;"></img></a></p>
+      <p>
+        <a href="mailto:jlelangmo@gmail.com">Email: jlelangmo </a>
+        <br>
+        <a href="https://discord.gg/GxvDAptdMX">Discord Support</a>
+        <br>
+        Tlf: 76549085
+        <br>
+        <a href="html/Aboutus.html">Om oss</a>
+      </p>
     </footer>
 
     <script src="js/script.js"></script>
-</body>
+  </body>
 </html>
