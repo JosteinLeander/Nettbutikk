@@ -1,0 +1,70 @@
+<ul>
+  <li>
+    <i
+      class="fa-brands fa-mandalorian"
+      style="font-size: 50px; color: black"
+    ></i>
+  </li>
+  <li><a class="active" href="/">Home</a></li>
+  <li><a href="/Products">Produkter</a></li>
+  <li style="float: right">
+    <button id="myBtn">
+      <i
+        class="fa-solid fa-cart-plus"
+        id="Cart"
+        style="font-size: 35px; color: black"
+      ></i>
+    </button>
+  </li>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Handlekurv</h2>
+      </div>
+      <div class="modal-body">
+        <p>Produkt</p>
+        <p>Betal</p>
+      </div>
+      <div class="modal-footer">
+        <form action="/Nav" method="POST">
+          <label for="cardNr">Kredittkort nummer:</label>
+          <input type="number" name="cardNr" id="cardNr">
+          <label for="gyldig">Utløpsdato:</label>
+          <input type="number" name="gyldig" id="gyldig">
+          <label for="csv">CSV:</label>
+          <input type="number" name="csv" id="csv">
+          <button>Legg til</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <li style="float: right"><a href="/LoggInn">Logg inn</a></li>
+
+  <input
+    type="text"
+    placeholder="Søk..."
+    id="Search"
+    style="float: right; height: 40px; width: 250px"
+  />
+</ul>
+<hr>
+
+<script>
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("myBtn");
+const span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>

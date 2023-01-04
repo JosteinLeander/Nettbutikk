@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Welcome to Old Toys</h1>
+      <div class="grid-container">
+        <% if (prod.length > 0) { %> 
+          <% prod.forEach(prod => { %>
+            <div class="grid-item">
+              <%= prod.type %> <%= prod.version %> <br />
+              Pris <%= prod.price %> Kr 
+              <img id="img1" class="myimg" src=<%= prod.img %> alt= <%= prod.alt %> />
+              <form action="/prod" method="POST">
+                <input type="hidden" id="id" name="id" value= <%= prod.id %> />
+                <label for="antall">Antall:</label>
+                <input type="number" id="antall" name="antall" />
+                <button>Legg til i handlekurv</button>
+              </form>
+              <div style="font-size: 25px">
+                På lager: <%= prod.stock %> <br /><br />
+                <%= prod.info %>
+              </div>
+            </div>
+          <% }) %> 
+        <% } else { %>
+          <p>Ingen produkter</p>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+  </body>
+</html>

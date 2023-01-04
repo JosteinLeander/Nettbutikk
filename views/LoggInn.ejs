@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h2>Logg inn</h2>
+      <form>
+        <input type="text" id="username" placeholder="username" />
+        <input type="text" id="password" placeholder="password" />
+        <button type="submit" onclick="loggInn()">Logg inn</button>
+      </form>
+      <br />
+      <a href="/NyBruker" style="background-color: red">Lag ny bruker</a>
+    </div>
+
+    <%- include('./partials/footer') %>
+    
+  </body>
+</html>

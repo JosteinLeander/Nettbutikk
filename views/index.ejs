@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Welcome to Old Toys</h1>
+      <div class="sidenav">
+        <ol>
+          <h3>Mest solgte</h3>
+          <% if (topSolgte.length > 0) { %> <% for (let i = 0; i < 5; i++) { %>
+          <li><%= topSolgte[i].type %> <%= topSolgte[i].version %></li>
+          <% } %> <% } else { %>
+          <li>Ingen produkter solgt</li>
+          <% } %>
+        </ol>
+      </div>
+      <div class="grid-container">
+        <div class="grid-item">
+          <img
+            id="img1"
+            class="myimg"
+            src="/PlaystationLogo.jpeg"
+            alt="PSLogo"
+          />
+          <div class="middle">
+            <div class="morebutton" id="PSbutton">
+              <a href="/Playstation">more</a>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="/SegaLogo.jpeg" alt="SLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Sbutton"><a href="/Sega">more</a></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="/NintendoLogo.jpeg" alt="NLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Nbutton">
+              <a href="/Nintendo">more</a>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img id="img2" class="myimg" src="/XboxLogo.jpeg" alt="XLogo" />
+          <div class="middle">
+            <div class="morebutton" id="Xbutton"><a href="/Xbox">more</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/prodInfo.css">
+  
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Playstation</h1>
+      <hr />
+      <div class="grid-container">
+        <% if (playstation.length > 0) { %>
+            <% playstation.forEach(playstation => { %>
+                <div class="grid-item">
+                    <%= playstation.type %> <%= playstation.version %> <br>
+                    Pris <%= playstation.price %> Kr
+                    <img id="img1" class="myimg" src= <%= playstation.img %> alt= <%= playstation.alt %> />
+                    <form action="/Playstation" method="POST">
+                        <input type="hidden" id="id" name="id" value=<%= playstation.id %>
+                        <label for="antall">Antall:</label>
+                        <input type="number" id="antall" name="antall">
+                        <button>Legg til i handlekurv</button>
+                    </form>
+                    <div style="font-size: 25px;">På lager: <%= playstation.stock %> <br><br>
+                        <!-- <%= playstation.info %> -->
+                    </div>
+                    <div class="tooltip">Mer informasjon
+                      <span class="tooltiptext"><%= playstation.info %></span>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>Ingen solgte</p>
+        <% } %>
+    
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/prodInfo.css">
+  
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Nintendo</h1>
+      <hr />
+      <div class="grid-container">
+        <% if (nintendo.length > 0) { %>
+            <% nintendo.forEach(nintendo => { %>
+                <div class="grid-item">
+                    <%= nintendo.type %> <%= nintendo.version %> <br>
+                    Pris <%= nintendo.price %> Kr
+                    <img id="img1" class="myimg" src= <%= nintendo.img %> alt= <%= nintendo.alt %> />
+                    <form action="/Nintendo" method="POST">
+                        <input type="hidden" id="id" name="id" value=<%= nintendo.id %>
+                        <label for="antall">Antall:</label>
+                        <input type="number" id="antall" name="antall">
+                        <button>Legg til i handlekurv</button>
+                    </form>
+                    <div style="font-size: 25px;">På lager: <%= nintendo.stock %> <br><br>
+                        <!-- <%= nintendo.info %> -->
+                    </div>
+                    <div class="tooltip">Mer informasjon
+                      <span class="tooltiptext"><%= nintendo.info %></span>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>Ingen solgte</p>
+        <% } %>
+    
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+
+  </body>
+</html>

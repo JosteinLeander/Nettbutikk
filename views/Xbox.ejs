@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/prodInfo.css">
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Xbox</h1>
+      <hr />
+      <div class="grid-container">
+        <% if (xbox.length > 0) { %>
+            <% xbox.forEach(xbox => { %>
+                <div class="grid-item">
+                    <%= xbox.type %> <%= xbox.version %> <br>
+                    Pris <%= xbox.price %> Kr
+                    <img id="img1" class="myimg" src= <%= xbox.img %> alt= <%= xbox.alt %> />
+                    <form action="/Xbox" method="POST">
+                        <input type="hidden" id="id" name="id" value=<%= xbox.id %>
+                        <label for="antall">Antall:</label>
+                        <input type="number" id="antall" name="antall">
+                        <button>Legg til i handlekurv</button>
+                    </form>
+                    <div style="font-size: 25px;">På lager: <%= xbox.stock %> <br><br>
+                       <!--  <%= xbox.info %> -->
+                    </div>
+                    <div class="tooltip">Mer informasjon
+                      <span class="tooltiptext"><%= xbox.info %></span>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>Ingen solgte</p>
+        <% } %>
+    
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+
+  </body>
+</html>
