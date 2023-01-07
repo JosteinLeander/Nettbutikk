@@ -1,13 +1,13 @@
-<ul>
+<ul id="menu">
   <li>
     <i
       class="fa-brands fa-mandalorian"
       style="font-size: 50px; color: black"
     ></i>
   </li>
-  <li><a class="active" href="/">Home</a></li>
-  <li><a href="/Products">Produkter</a></li>
-  <li style="float: right">
+  <li><p title=Hjemmeside> <a href="/">Hjem</a></li>
+  <li><p title="Alle produkter"> <a href="/Products">Produkter</a></li>
+  <!-- <li style="float: right">
     <button id="myBtn">
       <i
         class="fa-solid fa-cart-plus"
@@ -15,56 +15,36 @@
         style="font-size: 35px; color: black"
       ></i>
     </button>
-  </li>
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Handlekurv</h2>
-      </div>
-      <div class="modal-body">
-        <p>Produkt</p>
-        <p>Betal</p>
-      </div>
-      <div class="modal-footer">
-        <form action="/Nav" method="POST">
-          <label for="cardNr">Kredittkort nummer:</label>
-          <input type="number" name="cardNr" id="cardNr">
-          <label for="gyldig">Utløpsdato:</label>
-          <input type="number" name="gyldig" id="gyldig">
-          <label for="csv">CSV:</label>
-          <input type="number" name="csv" id="csv">
-          <button>Legg til</button>
-        </form>
-      </div>
-    </div>
-  </div>
+  </li> -->
 
-  <li style="float: right"><a href="/LoggInn">Logg inn</a></li>
+  <!-- Handlekurv -->
+  <li style="float: right"><p title="Handlekurv"> <a href="/order"> <i class="fa-solid fa-cart-plus" id="Cart" style="font-size: 35px; color: black"></i> </a></li>
 
-  <input
-    type="text"
-    placeholder="Søk..."
-    id="Search"
-    style="float: right; height: 40px; width: 250px"
-  />
+  <!-- Logg inn -->
+  <li style="float: right"><p title="Logg inn bruker"> <a href="/LoggInn">Logg inn</a></li>
+
+  <!-- Søk -->
+  <li style="float: right;">
+    <form action="/search" method="get" style="width: 300px;">
+    <p title="Søk etter produkter"> <input style="font-size: 25px;" type="search" placeholder="Søk..." name="search" id="search">
+    </form></li>
 </ul>
+
+
 <hr>
 
 <script>
-const modal = document.getElementById("myModal");
-const btn = document.getElementById("myBtn");
-const span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-span.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+function activeMenu() {
+  let menuItems = document.getElementById('menu').getElementsByTagName('a');
+  for (let i = 0; i < menuItems.length; i++) {
+    if (document.location.href.indexOf(menuItems[i].href) >= 0) {
+      if (menuItems[0].className == 'active') {
+        menuItems[0].classList.remove('active');
+      }
+      menuItems[i].className = 'active';
+    }
   }
 }
+window.onload = activeMenu;
 </script>

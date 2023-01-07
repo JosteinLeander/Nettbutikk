@@ -13,7 +13,8 @@
   -webkit-animation-name: fadeIn;
   -webkit-animation-duration: 0.4s;
   animation-name: fadeIn;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
+  font-size: 25px;
 }
 
 .modal-content {
@@ -24,7 +25,7 @@
   -webkit-animation-name: slideIn;
   -webkit-animation-duration: 0.4s;
   animation-name: slideIn;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
 }
 
 .close {
@@ -47,7 +48,9 @@
   color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+  padding: 2px 16px;
+}
 
 .modal-footer {
   padding: 2px 16px;
@@ -93,14 +96,17 @@ ul {
 
 li {
   float: left;
+  color: blue;
+  padding: 10px;
 }
 
 li a {
   display: block;
   color: black;
   text-align: center;
-  padding: 14px 16px;
+  /*padding: 14px 16px;*/
   text-decoration: none;
+  font-size: 30px;
 }
 
 li a:hover:not(.active) {
@@ -125,7 +131,7 @@ h2 {
 }
 
 .footer {
-  height: 100px;
+  height: 40px;
   background-color: white;
   text-align: center;
 }
@@ -174,13 +180,13 @@ h2 {
   -ms-transform: translate(-50%, -50%);
 }
 
-.grid-item:hover .myimg {
+/* .grid-item:hover .myimg {
   opacity: 0.3;
 }
 
 .grid-item:hover .middle {
   opacity: 1;
-}
+} */
 
 .morebutton {
   background-color: #4caf50;
@@ -189,7 +195,7 @@ h2 {
   padding: 16px 32px;
 }
 
-form {
+/* form {
   max-width: 200px;
   margin: 40px auto;
   padding: 10px;
@@ -199,4 +205,47 @@ input {
   display: block;
   margin: 10px auto;
   padding: 4px;
+} */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.authForm {
+  margin-left: 35%;
+  width: 360px;
+  margin: o auto;
+  padding: 30px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  background: white;
+}
+
+.authInput {
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+  width: 360px;
+}
+
+.authLabel {
+  display: block;
+  /* margin: 20px 0 10px; */
+}
+
+.authBtn {
+  background: #4caf50;
 }

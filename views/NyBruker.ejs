@@ -6,18 +6,21 @@
 
     <div class="main">
       <h2>Lag ny bruker</h2>
-      <form>
-        <input type="text" id="username" placeholder="username" />
-        <input type="text" id="password" placeholder="password" />
-        <button type="submit" onclick="oprettNyBruker()">
-          Opprett ny bruker
-        </button>
-      </form>
+      <div class="authForm authInput authLabel">
+        <form class="signup" action="/regBruker" method="post">
+          <label for="email">email:</label>
+          <input type="email" name="email" required/>
+          <div class="email error"></div><br>
+          <label for="password">password:</label>
+          <input type="passsword" name="password" required/>
+          <div class="password error"></div><br>
+          <button class="authBtn">Registrer bruker</button>
+        </form>
+      </div>
       <br />
-      <a href="/LoggInn" style="background-color: red">Logg inn</a>
     </div>
 
     <%- include('./partials/footer') %>
-    
+
   </body>
 </html>

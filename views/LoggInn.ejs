@@ -6,16 +6,31 @@
 
     <div class="main">
       <h2>Logg inn</h2>
-      <form>
-        <input type="text" id="username" placeholder="username" />
-        <input type="text" id="password" placeholder="password" />
-        <button type="submit" onclick="loggInn()">Logg inn</button>
-      </form>
+      <div class="authForm authInput authLabel">
+        <form class="login">
+          <label for="email">email:</label>
+          <input type="email" name="email" required/>
+          <div class="email error"></div><br>
+          <label for="password">password:</label>
+          <input type="passsword" name="password" required/>
+          <div class="password error"></div><br>
+          <button class="authBtn">Logg inn</button>
+        </form>
+      </div>
       <br />
-      <a href="/NyBruker" style="background-color: red">Lag ny bruker</a>
     </div>
 
     <%- include('./partials/footer') %>
     
+    <script>
+      const loginForm = document.querySelector('.login');
+     /*  loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+      }); */
+
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+      console.log(email, password);
+    </script>
   </body>
 </html>

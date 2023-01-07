@@ -10,9 +10,9 @@
         <ol>
           <h3>Mest solgte</h3>
           <% if (topSolgte.length > 0) { %> <% for (let i = 0; i < 5; i++) { %>
-          <li><%= topSolgte[i].type %> <%= topSolgte[i].version %></li>
+            <li><%= topSolgte[i].type %> <%= topSolgte[i].version %></li>
           <% } %> <% } else { %>
-          <li>Ingen produkter solgt</li>
+            <li>Ingen produkter solgt</li>
           <% } %>
         </ol>
       </div>

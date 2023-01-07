@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/prodInfo.css">
+  
   <body>
     <%- include('./partials/nav.ejs') %>
 
@@ -21,7 +23,9 @@
               </form>
               <div style="font-size: 25px">
                 På lager: <%= prod.stock %> <br /><br />
-                <%= prod.info %>
+              </div>
+              <div class="tooltip">Mer informasjon
+                <span class="tooltiptext"><%= prod.info %></span>
               </div>
             </div>
           <% }) %> 

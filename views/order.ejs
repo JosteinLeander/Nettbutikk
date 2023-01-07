@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/prodInfo.css">
+  
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="main">
+      <h1>Handlekurv</h1>
+      <% if (order.length > 0) { %>
+        <table>
+            <tr>
+                <th>Produkt</th>
+                <th>Versjon</th>
+                <th>Pris</th>
+            </tr>
+            <% order.forEach(order => { %>
+                <tr>
+                    <td><%= order.type %></td>
+                    <td><%= order.version %></td>
+                    <td><%= order.price %></td>
+                </tr>
+            <% }) %>
+            <tr>
+                <td>Adm og frakt</td>
+                <td></td>
+                <td>150</td>
+            </tr>
+            <tr>
+                <td>Totalpris inkl. mva</td>
+                <td></td>
+                <td>600</td>
+            </tr>
+        </table>
+      <% } else { %>
+        <h1 style="color: green;">Ingenting her å se</h1>
+      <% } %>
+
+      <!-- Handlekurv -->
+      <br> <br>
+      <button id="betalBtn" style="color: green; font-size: 30px; float: right;">Betal</button> <br> <br> <br>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Registrer kredittkort og betale</h2>
+            </div>
+            <div class="modal-body">
+                <form action="/getShopData" method="GET">
+                <label for="produkter">Person: </label>
+                <input type="text" id="noe" name="noe">
+                <label for="betale">Betale:</label>
+                <button type="submit">Hent data</button>
+                </form>
+                <p>Produkt: </p>
+                <p>Betal</p>
+            </div>
+            <div class="modal-footer">
+                <form action="/credCard" method="POST">
+                <label for="cardNr">Kredittkort nummer:</label>
+                <input type="number" id="cardNr" name="cardNr"><br><br>
+                <label for="gyldig">Utløpsdato:</label>
+                <input type="number" id="gyldig" name="gyldig"><br><br>
+                <label for="csv">CSV:</label>
+                <input type="number" id="csv" name="csv"><br><br><br>
+                <button style="font-size: 40px;">Registrer betaling</button><br><br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <%- include('./partials/footer') %>
+
+    <script>
+        const modal = document.getElementById("myModal");
+        const btn = document.getElementById("betalBtn");
+        const span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+        modal.style.display = "block";
+        }
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+    </script>
+  </body>
+</html>
