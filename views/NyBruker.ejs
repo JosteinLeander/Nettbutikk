@@ -22,5 +22,27 @@
 
     <%- include('./partials/footer') %>
 
+<!--     <script>
+      const signupForm = document.querySelector('.signup');
+      signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = signupForm.email.value;
+        const password = signupForm.password.value;
+        console.log(email, password);
+
+        try {
+          const res = await fetch('/regBruker', {
+            method: 'post',
+            body: JSON.stringify({ email, password }),
+            headers: { 'Content-Type': 'apllication/json' }
+          });
+        }
+        catch (err) {
+          console.log(err);
+        }
+      });
+    </script> -->
+
   </body>
 </html>

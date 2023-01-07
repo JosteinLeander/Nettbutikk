@@ -1,4 +1,6 @@
 const express = require("express");
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 // express app
 const app = express();
@@ -12,6 +14,7 @@ app.listen(3000);
 // middleware & static files
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //Firebase
 const firebase = require('firebase/app');
@@ -20,7 +23,7 @@ const {
   addDoc, deleteDoc, doc,
   query, where,
   orderBy, serverTimeStamp,
-  getDoc, updateDoc, getDocs
+  getDoc, updateDoc, getDocs, enableNetwork
 } = require('firebase/firestore');
 
 // Firebase Auth
@@ -79,6 +82,14 @@ onSnapshot(q, (snapshot) => {
   });
 });
 
+// JWT
+const maxAge = 1 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, 'Nettbutikk secret', {
+    expiresIn: maxAge
+  });
+}
+
 
 //Sider
 app.get("/", (req, res) => {
@@ -99,8 +110,24 @@ app.get("/NyBruker", (req, res) => {
 });
 
 app.post("/regBruker", (req, res) => {
-  console.log(req.body);
-  res.render("NyBruker.ejs", { title: "NyBruker"});
+  const { email, password } = req.body;
+  console.log("regBruker", email, password);
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("Bruker registrert:", user)
+      const token = createToken(userCredential.uid);
+      res.cookie('jwt', token, {maxAge: maxAge});
+/*       res.status(201).json({user: userCredential.uid}); */
+/*       res.render("NyBruker.ejs", { title: "NyBruker"}); */
+      console.log("KOMMER HIT")
+      res.redirect('/');
+    })
+    .catch((err) => {
+      const errorCode = err.code;
+      console.log(err);
+      res.render('NyBruker.ejs', { error: err });
+    });
 });
 
 app.get("/Products", (req, res) => {
@@ -190,3 +217,27 @@ app.get("/search", (req, res) => {
   });
   res.render("Products.ejs", { title: "Produkter", prod: result});
 });
+
+/* // Cookies
+app.get('/set-cookies', (req, res) => {
+  //res.setHeader('Set-Cookie', 'newUser=true');
+  res.cookie('newUser', false);
+  res.cookie('isEmploy', true), {hhtpOnly: true};
+  res.send('you got cookies');
+});
+
+app.get('/read-cookies', (req, res) => {
+  const cookies = req.cookies;
+  console.log(cookies.newUser);
+
+  res.json(cookies);
+}); */
+
+/* onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log("userChange", uid);
+  } else {
+    console.log("User logged out");
+  }
+}); */
