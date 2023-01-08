@@ -72,6 +72,17 @@ onSnapshot(q, (snapshot) => {
     console.log(toppListe);
 }) */
 
+let bruker = "";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    bruker = user.email;
+  } else {
+    console.log("Bruker logget ut");
+  }
+});
+
 // Query for å finne mest solgte mot db
 const q = query(colRef, orderBy('sold', 'desc'));
 
@@ -93,45 +104,56 @@ const createToken = (id) => {
 
 //Sider
 app.get("/", (req, res) => {
-  res.render("index.ejs", { title: "Home", topSolgte: topSolgte });
+  res.render("index.ejs", { title: "Home", topSolgte: topSolgte, user: bruker });
+});
+
+app.get("/LoggUt", (req, res) => {
+  bruker = "";
+  auth.signOut();
+  res.redirect("/");
 });
 
 app.get("/LoggInn", (req, res) => {
-  res.render("LoggInn.ejs", { title: "LoggInn" });
+  res.render("LoggInn.ejs", { title: "LoggInn", user: bruker });
 });
 
-app.post("/loggInnBruker", (req, res) => {
-  res.render("LoggInn.ejs", { title: "LoggInn" });
-});
-
-app.get("/NyBruker", (req, res) => {
-  console.log(req.body);
-  res.render("NyBruker.ejs", { title: "NyBruker"});
-});
-
-app.post("/regBruker", (req, res) => {
+app.post("/loggInn", (req, res) => {
   const { email, password } = req.body;
-  console.log("regBruker", email, password);
-  createUserWithEmailAndPassword(auth, email, password)
+  console.log("loggInnBruker", email, password);
+  signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("Bruker registrert:", user)
       const token = createToken(userCredential.uid);
       res.cookie('jwt', token, {maxAge: maxAge});
-/*       res.status(201).json({user: userCredential.uid}); */
-/*       res.render("NyBruker.ejs", { title: "NyBruker"}); */
-      console.log("KOMMER HIT")
       res.redirect('/');
     })
     .catch((err) => {
       const errorCode = err.code;
-      console.log(err);
-      res.render('NyBruker.ejs', { error: err });
+      res.render('LoggInn.ejs', { title: "Logg Inn", userError: errorCode, user: bruker });
+    });
+});
+
+app.get("/NyBruker", (req, res) => {
+  res.render("NyBruker.ejs", { title: "NyBruker", user: bruker });
+});
+
+app.post("/NyBruker", (req, res) => {
+  const { email, password } = req.body;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const token = createToken(userCredential.uid);
+      res.cookie('jwt', token, {maxAge: maxAge});
+      res.redirect('/');
+    })
+    .catch((err) => {
+      const errorCode = err.code;
+      res.render('NyBruker.ejs', { title: "Ny Bruker", userError: errorCode, user: bruker });
     });
 });
 
 app.get("/Products", (req, res) => {
-  res.render("Products.ejs", { title: "Products", prod: topSolgte });
+  res.render("Products.ejs", { title: "Products", prod: topSolgte, user: bruker });
 });
 
 //Playstation
@@ -142,7 +164,7 @@ app.get("/Playstation", (req, res) => {
       playstation.push(doc);
     }
   });
-  res.render("Playstation.ejs", { title: "Playstation", playstation: playstation });
+  res.render("Playstation.ejs", { title: "Playstation", playstation: playstation, user: bruker });
 });
 
 app.post("/Playstation", (req, res) => {
@@ -158,7 +180,7 @@ app.get("/Xbox", (req, res) => {
       xbox.push(doc);
     }
   });
-  res.render("Xbox.ejs", { title: "Xbox", xbox: xbox });
+  res.render("Xbox.ejs", { title: "Xbox", xbox: xbox, user: bruker });
 });
 
 app.post("/Xbox", (req, res) => {
@@ -173,7 +195,7 @@ app.get("/Nintendo", (req, res) => {
       nintendo.push(doc);
     }
   });
-  res.render("Nintendo.ejs", { title: "Nintendo", nintendo: nintendo });
+  res.render("Nintendo.ejs", { title: "Nintendo", nintendo: nintendo, user: bruker });
 });
 
 app.post("/Nintendo", (req, res) => {
@@ -188,7 +210,7 @@ app.get("/Sega", (req, res) => {
         sega.push(doc);
     }
   });
-  res.render("Sega.ejs", { title: "Sega", sega: sega });
+  res.render("Sega.ejs", { title: "Sega", sega: sega, user: bruker });
 });
 
 app.post("/Sega", (req, res) => {
@@ -197,7 +219,7 @@ app.post("/Sega", (req, res) => {
 
 app.get("/order", (req, res) => {
   const order = topSolgte;
-  res.render("order.ejs", { title: "Handlekurv", order: order});
+  res.render("order.ejs", { title: "Handlekurv", order: order, user: bruker });
 });
 
 app.post("/credCard", (req, res) => {
@@ -215,29 +237,5 @@ app.get("/search", (req, res) => {
       result.push(doc);
     }
   });
-  res.render("Products.ejs", { title: "Produkter", prod: result});
+  res.render("Products.ejs", { title: "Produkter", prod: result, user: bruker });
 });
-
-/* // Cookies
-app.get('/set-cookies', (req, res) => {
-  //res.setHeader('Set-Cookie', 'newUser=true');
-  res.cookie('newUser', false);
-  res.cookie('isEmploy', true), {hhtpOnly: true};
-  res.send('you got cookies');
-});
-
-app.get('/read-cookies', (req, res) => {
-  const cookies = req.cookies;
-  console.log(cookies.newUser);
-
-  res.json(cookies);
-}); */
-
-/* onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-    console.log("userChange", uid);
-  } else {
-    console.log("User logged out");
-  }
-}); */

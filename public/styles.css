@@ -59,23 +59,23 @@
 }
 
 @-webkit-keyframes slideIn {
-  from {bottom: -300px; opacity: 0} 
-  to {bottom: 0; opacity: 1}
+  from {bottom: -300px; opacity: 0};
+  to {bottom: 0; opacity: 1};
 }
 
 @keyframes slideIn {
-  from {bottom: -300px; opacity: 0}
-  to {bottom: 0; opacity: 1}
+  from {bottom: -300px; opacity: 0};
+  to {bottom: 0; opacity: 1};
 }
 
 @-webkit-keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
+  from {opacity: 0};
+  to {opacity: 1};
 }
 
 @keyframes fadeIn {
-  from {opacity: 0} 
-  to {opacity: 1}
+  from {opacity: 0};
+  to {opacity: 1};
 }
 
 .sidenav {
@@ -247,5 +247,10 @@ tr:nth-child(even) {
 }
 
 .authBtn {
+  background: #4caf50;
+}
+
+.authNewBtn {
+  margin-left: 45%;
   background: #4caf50;
 }

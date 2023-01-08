@@ -7,21 +7,21 @@
   </li>
   <li><p title=Hjemmeside> <a href="/">Hjem</a></li>
   <li><p title="Alle produkter"> <a href="/Products">Produkter</a></li>
-  <!-- <li style="float: right">
-    <button id="myBtn">
-      <i
-        class="fa-solid fa-cart-plus"
-        id="Cart"
-        style="font-size: 35px; color: black"
-      ></i>
-    </button>
-  </li> -->
 
   <!-- Handlekurv -->
-  <li style="float: right"><p title="Handlekurv"> <a href="/order"> <i class="fa-solid fa-cart-plus" id="Cart" style="font-size: 35px; color: black"></i> </a></li>
+  <li style="float: right;"><p title="Handlekurv"> <a href="/order"> <i class="fa-solid fa-cart-plus" id="Cart" style="font-size: 35px; color: black;"></i> </a></li>
 
-  <!-- Logg inn -->
-  <li style="float: right"><p title="Logg inn bruker"> <a href="/LoggInn">Logg inn</a></li>
+  <!-- Logg inn eller Logg ut -->
+  <% if (user != 'undefined') { %>
+    <% if (user != '') { %>
+      <li style="float: right; padding-left: 20px;"><p title="Klikk for å logge ut"><a href="/LoggUt"><%= user %></a></li>
+    <% } else { %>
+      <li style="float: right; padding-left: 20px;"><p title="Logg inn bruker"> <a href="/LoggInn">Logg inn</a></li>
+    <% } %>
+  <% } else { %>
+    <li style="float: right; padding-left: 20px;"><p title="Logg inn bruker"> <a href="/LoggInn">Logg inn</a></li>
+  <% } %>
+
 
   <!-- Søk -->
   <li style="float: right;">
@@ -35,16 +35,16 @@
 
 <script>
 
-function activeMenu() {
-  let menuItems = document.getElementById('menu').getElementsByTagName('a');
-  for (let i = 0; i < menuItems.length; i++) {
-    if (document.location.href.indexOf(menuItems[i].href) >= 0) {
-      if (menuItems[0].className == 'active') {
-        menuItems[0].classList.remove('active');
+  function activeMenu() {
+    let menuItems = document.getElementById('menu').getElementsByTagName('a');
+    for (let i = 0; i < menuItems.length; i++) {
+      if (document.location.href.indexOf(menuItems[i].href) >= 0) {
+        if (menuItems[0].className == 'active') {
+          menuItems[0].classList.remove('active');
+        }
+        menuItems[i].className = 'active';
       }
-      menuItems[i].className = 'active';
     }
-  }
-}
-window.onload = activeMenu;
+  };
+  window.onload = activeMenu;
 </script>

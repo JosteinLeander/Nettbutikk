@@ -7,16 +7,17 @@
     <div class="main">
       <h2>Lag ny bruker</h2>
       <div class="authForm authInput authLabel">
-        <form class="signup" action="/regBruker" method="post">
+        <form class="signup" action="/NyBruker" method="post">
           <label for="email">email:</label>
-          <input type="email" name="email" required/>
-          <div class="email error"></div><br>
+          <input type="email" name="email" required/><br> <br>
           <label for="password">password:</label>
-          <input type="passsword" name="password" required/>
-          <div class="password error"></div><br>
+          <input type="passsword" name="password" required/><br> <br>
           <button class="authBtn">Registrer bruker</button>
         </form>
       </div>
+      <% if (typeof userError != 'undefined') { %>
+        <h2 style="color: red;">Bruker ikke opprettet: <%= userError %></h2>
+      <% } %>
       <br />
     </div>
 

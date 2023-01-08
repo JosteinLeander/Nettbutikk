@@ -7,30 +7,25 @@
     <div class="main">
       <h2>Logg inn</h2>
       <div class="authForm authInput authLabel">
-        <form class="login">
+        <form class="login" action="/LoggInn" method="post">
           <label for="email">email:</label>
-          <input type="email" name="email" required/>
-          <div class="email error"></div><br>
+          <input type="email" name="email" required/><br> <br>
           <label for="password">password:</label>
-          <input type="passsword" name="password" required/>
-          <div class="password error"></div><br>
+          <input type="passsword" name="password" required/><br> <br>
           <button class="authBtn">Logg inn</button>
         </form>
       </div>
+      <% if (typeof userError != 'undefined') { %>
+        <h2 style="color: red;">ERROR: <%= userError %></h2>
+      <% } %>
+      <br> <br>
+      <form action="/NyBruker" method="get">
+        <button class="authNewBtn">Lag ny bruker</button>
+      </form>
       <br />
     </div>
 
     <%- include('./partials/footer') %>
-    
-    <script>
-      const loginForm = document.querySelector('.login');
-     /*  loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-      }); */
 
-      const email = loginForm.email.value;
-      const password = loginForm.password.value;
-      console.log(email, password);
-    </script>
   </body>
 </html>
