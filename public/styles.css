@@ -130,6 +130,10 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  text-align: center;
+}
+
 .footer {
   height: 40px;
   background-color: white;
@@ -243,7 +247,6 @@ tr:nth-child(even) {
 
 .authLabel {
   display: block;
-  /* margin: 20px 0 10px; */
 }
 
 .authBtn {

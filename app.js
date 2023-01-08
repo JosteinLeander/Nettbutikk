@@ -23,7 +23,7 @@ const {
   addDoc, deleteDoc, doc,
   query, where,
   orderBy, serverTimeStamp,
-  getDoc, updateDoc, getDocs, enableNetwork
+  getDoc, updateDoc, getDocs, enableNetwork, setDoc, QuerySnapshot
 } = require('firebase/firestore');
 
 // Firebase Auth
@@ -55,6 +55,7 @@ const auth = getAuth();
 
 //collection ref
 const colRef = collection(db, 'produkter');
+const orderRef = collection(db, 'order');
 
 /* //get collection data
 getDocs(colRef)
@@ -83,6 +84,20 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+const leggTilProd = (req) => {
+  let prod = req.body;
+  prod.user = bruker;
+
+  addDoc(orderRef, prod)
+    .then((docRef) => {
+      console.log("Data lagt til");
+    })
+    .catch((err) => {
+      console.log("Klarte ikke å lagre...");
+      console.log(err);
+    })
+};
+
 // Query for å finne mest solgte mot db
 const q = query(colRef, orderBy('sold', 'desc'));
 
@@ -99,8 +114,7 @@ const createToken = (id) => {
   return jwt.sign({ id }, 'Nettbutikk secret', {
     expiresIn: maxAge
   });
-}
-
+};
 
 //Sider
 app.get("/", (req, res) => {
@@ -109,7 +123,7 @@ app.get("/", (req, res) => {
 
 app.get("/LoggUt", (req, res) => {
   bruker = "";
-  auth.signOut();
+  signOut(auth);
   res.redirect("/");
 });
 
@@ -156,6 +170,16 @@ app.get("/Products", (req, res) => {
   res.render("Products.ejs", { title: "Products", prod: topSolgte, user: bruker });
 });
 
+app.post("/Products", (req, res) => {
+  if (bruker != '') {
+    leggTilProd(req);
+
+    res.render("Products.ejs", { title: "Produkter", prod: topSolgte, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
+});
+
 //Playstation
 app.get("/Playstation", (req, res) => {
   const playstation = [];
@@ -168,8 +192,18 @@ app.get("/Playstation", (req, res) => {
 });
 
 app.post("/Playstation", (req, res) => {
-  console.log(req.body)
-  res.send("playstation");
+  if (bruker != '') {
+    const playstation = [];
+    topSolgte.forEach(doc => {
+      if (doc.type == "Playstation") {
+        playstation.push(doc);
+      }
+    });
+    leggTilProd(req);
+    res.render("Playstation.ejs", { title: "Playstation", playstation: playstation, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
 });
 
 //Xbox
@@ -184,7 +218,18 @@ app.get("/Xbox", (req, res) => {
 });
 
 app.post("/Xbox", (req, res) => {
-  console.log(req.body);
+  if (bruker != '') {
+    const xbox = [];
+    topSolgte.forEach(doc => {
+      if (doc.type == "Xbox") {
+        xbox.push(doc);
+      }
+    });
+    leggTilProd(req);
+    res.render("Xbox.ejs", { title: "Xbox", xbox: xbox, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
 });
 
 //Nintendo
@@ -199,7 +244,18 @@ app.get("/Nintendo", (req, res) => {
 });
 
 app.post("/Nintendo", (req, res) => {
-  console.log(req.body)
+  if (bruker != '') {
+    const nintendo = [];
+    topSolgte.forEach(doc => {
+      if (doc.type == "Nintendo") {
+        nintendo.push(doc);
+      }
+    });
+    leggTilProd(req);
+    res.render("Nintendo.ejs", { title: "Nintendo", nintendo: nintendo, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
 });
 
 //Sega
@@ -214,12 +270,34 @@ app.get("/Sega", (req, res) => {
 });
 
 app.post("/Sega", (req, res) => {
-  console.log(req.body)
+  if (bruker != '') {
+    const sega = [];
+    topSolgte.forEach(doc => {
+      if (doc.type == "Sega") {
+          sega.push(doc);
+      }
+    });
+    leggTilProd(req);
+    res.render("Sega.ejs", { title: "Sega", sega: sega, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
 });
 
-app.get("/order", (req, res) => {
-  const order = topSolgte;
-  res.render("order.ejs", { title: "Handlekurv", order: order, user: bruker });
+app.get("/order", async (req, res) => {
+  if (bruker != '') {
+    let order = [];
+    const qOrder = query(orderRef, where('user', '==', bruker));
+    const querySnapshot = await getDocs(qOrder);
+
+    querySnapshot.forEach((doc) => {
+      order.push({ ...doc.data(), id: doc.id});
+    })
+
+    res.render("order.ejs", { title: "Handlekurv", order: order, user: bruker });
+  } else {
+    res.redirect('/LoggInn');
+  }
 });
 
 app.post("/credCard", (req, res) => {

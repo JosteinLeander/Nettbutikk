@@ -8,6 +8,7 @@
 
     <div class="main">
       <h1>Nintendo</h1>
+      <h3>Du må være logget inn for å legge til i handlekurven, hvis ikke blir du flyttet til logg inn</h3>
       <hr />
       <div class="grid-container">
         <% if (nintendo.length > 0) { %>
@@ -18,6 +19,9 @@
                     <img id="img1" class="myimg" src= <%= nintendo.img %> alt= <%= nintendo.alt %> />
                     <form action="/Nintendo" method="POST">
                         <input type="hidden" id="id" name="id" value=<%= nintendo.id %>
+                        <input type="hidden" id="type" name="type" value= <%= nintendo.type %> />
+                        <input type="hidden" id="version" name="version" value= <%= nintendo.version %> />
+                        <input type="hidden" id="price" name="price" value= <%= nintendo.price %> />
                         <label for="antall">Antall:</label>
                         <input type="number" id="antall" name="antall">
                         <button>Legg til i handlekurv</button>
@@ -31,7 +35,7 @@
                 </div>
             <% }) %>
         <% } else { %>
-            <p>Ingen solgte</p>
+            <p>Ingen produkter</p>
         <% } %>
     
       </div>

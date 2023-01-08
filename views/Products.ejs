@@ -7,7 +7,8 @@
     <%- include('./partials/nav.ejs') %>
 
     <div class="main">
-      <h1>Welcome to Old Toys</h1>
+      <h1>Velkommen til Old Toys</h1>
+      <h3>Du må være logget inn for å legge til i handlekurven, hvis ikke blir du flyttet til logg inn</h3>
       <div class="grid-container">
         <% if (prod.length > 0) { %> 
           <% prod.forEach(prod => { %>
@@ -17,6 +18,9 @@
               <img id="img1" class="myimg" src=<%= prod.img %> alt= <%= prod.alt %> />
               <form action="/prod" method="POST">
                 <input type="hidden" id="id" name="id" value= <%= prod.id %> />
+                <input type="hidden" id="type" name="type" value= <%= prod.type %> />
+                <input type="hidden" id="version" name="version" value= <%= prod.version %> />
+                <input type="hidden" id="price" name="price" value= <%= prod.price %> />
                 <label for="antall">Antall:</label>
                 <input type="number" id="antall" name="antall" />
                 <button>Legg til i handlekurv</button>
