@@ -13,6 +13,8 @@
             <tr>
                 <th>Produkt</th>
                 <th>Versjon</th>
+                <th>Pris/stk</th>
+                <th>Antall</th>
                 <th>Pris</th>
             </tr>
             <% order.forEach(order => { %>
@@ -20,55 +22,66 @@
                     <td><%= order.type %></td>
                     <td><%= order.version %></td>
                     <td><%= order.price %></td>
+                    <td><%= order.antall %></td>
+                    <td><%= order.price * order.antall %></td>
                 </tr>
             <% }) %>
             <tr>
                 <td>Adm og frakt</td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td>150</td>
             </tr>
             <tr>
                 <td>Totalpris inkl. mva</td>
                 <td></td>
-                <td><%= totalPris %></td>
+                <td></td>
+                <td></td>
+                <td><%= order.totalPris %></td>
             </tr>
         </table>
       <% } else { %>
         <h1 style="color: green;">Ingenting å se her</h1>
       <% } %>
-
-      <!-- Handlekurv -->
       <br> <br>
       <button id="betalBtn" style="color: green; font-size: 30px; float: right;">Betal</button> <br> <br> <br>
+
+      <!-- Leveranse og betaling -->
       <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Registrer kredittkort og betale</h2>
+                <h2>Registrer leveranse og kredittkort</h2>
             </div>
-            <div class="modal-body">
-                <form action="/getShopData" method="GET">
-                <label for="produkter">Person: </label>
-                <input type="text" id="noe" name="noe">
-                <label for="betale">Betale:</label>
-                <button type="submit">Hent data</button>
-                </form>
-                <p>Produkt: </p>
-                <p>Betal</p>
-            </div>
-            <div class="modal-footer">
-                <form action="/credCard" method="POST">
-                <label for="cardNr">Kredittkort nummer:</label>
-                <input type="number" id="cardNr" name="cardNr"><br><br>
-                <label for="gyldig">Utløpsdato:</label>
-                <input type="number" id="gyldig" name="gyldig"><br><br>
-                <label for="csv">CSV:</label>
-                <input type="number" id="csv" name="csv"><br><br><br>
-                <button style="font-size: 40px;">Registrer betaling</button><br><br><br>
-                </form>
-            </div>
+
+            <form action="/credCard" method="POST">
+                <div class="modal-body">
+                    <br>
+                    <label for="produkter">Navn: </label>
+                    <input type="text" id="navn" name="navn" required> <br>
+                    <label for="produkter">Adresse: </label>
+                    <input type="text" id="adr" name="adr" required> <br>
+                    <label for="produkter">Postnr: </label>
+                    <input type="text" id="postnr" name="postnr" required> <br>
+                    <label for="produkter">Sted: </label>
+                    <input type="text" id="sted" name="sted" required> <br>
+                    <label for="produkter">Telefonnr: </label>
+                    <input type="text" id="tlfnr" name="tlfnr" required> <br> <br>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <label for="cardNr">Kredittkort nummer:</label>
+                    <input type="number" id="cardNr" name="cardNr" required><br>
+                    <label for="gyldig">Utløpsdato:</label>
+                    <input type="number" id="gyldig" name="gyldig" required><br>
+                    <label for="csv">CSV:</label>
+                    <input type="number" id="csv" name="csv"><br><br>
+                    <button style="font-size: 40px; float: right;">Registrer betaling</button><br><br>
+                </div>
+            </form>
         </div>
-    </div>
+      </div>
     </div>
     <%- include('./partials/footer') %>
 
@@ -78,15 +91,15 @@
         const span = document.getElementsByClassName("close")[0];
 
         btn.onclick = function() {
-        modal.style.display = "block";
+            modal.style.display = "block";
         }
         span.onclick = function() {
-        modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-        if (event.target == modal) {
             modal.style.display = "none";
         }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
   </body>

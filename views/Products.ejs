@@ -15,8 +15,8 @@
             <div class="grid-item">
               <%= prod.type %> <%= prod.version %> <br />
               Pris <%= prod.price %> Kr 
-              <img id="img1" class="myimg" src=<%= prod.img %> alt= <%= prod.alt %> />
-              <form action="/prod" method="POST">
+              <img id="img1" class="myimg" src= <%= prod.img %> alt= <%= prod.alt %> />
+              <form action="/Products" method="post">
                 <input type="hidden" id="id" name="id" value= <%= prod.id %> />
                 <input type="hidden" id="type" name="type" value= <%= prod.type %> />
                 <input type="hidden" id="version" name="version" value= <%= prod.version %> />

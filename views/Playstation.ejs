@@ -17,8 +17,8 @@
                     <%= playstation.type %> <%= playstation.version %> <br>
                     Pris <%= playstation.price %> Kr
                     <img id="img1" class="myimg" src= <%= playstation.img %> alt= <%= playstation.alt %> />
-                    <form action="/Playstation" method="POST">
-                        <input type="hidden" id="id" name="id" value=<%= playstation.id %>
+                    <form action="/Playstation" method="post">
+                        <input type="hidden" id="id" name="id" value= <%= playstation.id %> />
                         <input type="hidden" id="type" name="type" value= <%= playstation.type %> />
                         <input type="hidden" id="version" name="version" value= <%= playstation.version %> />
                         <input type="hidden" id="price" name="price" value= <%= playstation.price %> />
@@ -27,7 +27,6 @@
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= playstation.stock %> <br><br>
-                        <!-- <%= playstation.info %> -->
                     </div>
                     <div class="tooltip">Mer informasjon
                       <span class="tooltiptext"><%= playstation.info %></span>

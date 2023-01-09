@@ -17,8 +17,8 @@
                     <%= sega.type %> <%= sega.version %> <br>
                     Pris <%= sega.price %> Kr
                     <img id="img1" class="myimg" src= <%= sega.img %> alt= <%= sega.alt %> />
-                    <form action="/Sega" method="POST">
-                        <input type="hidden" id="id" name="id" value=<%= sega.id %>
+                    <form action="/Sega" method="post">
+                        <input type="hidden" id="id" name="id" value= <%= sega.id %> />
                         <input type="hidden" id="type" name="type" value= <%= sega.type %> />
                         <input type="hidden" id="version" name="version" value= <%= sega.version %> />
                         <input type="hidden" id="price" name="price" value= <%= sega.price %> />
@@ -27,7 +27,6 @@
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= sega.stock %> <br><br>
-                        <!-- <%= sega.info %> -->
                     </div>
                     <div class="tooltip">Mer informasjon
                       <span class="tooltiptext"><%= sega.info %></span>

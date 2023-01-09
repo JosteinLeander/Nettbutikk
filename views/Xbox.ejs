@@ -17,8 +17,8 @@
                     <%= xbox.type %> <%= xbox.version %> <br>
                     Pris <%= xbox.price %> Kr
                     <img id="img1" class="myimg" src= <%= xbox.img %> alt= <%= xbox.alt %> />
-                    <form action="/Xbox" method="POST">
-                        <input type="hidden" id="id" name="id" value=<%= xbox.id %>
+                    <form action="/Xbox" method="post">
+                        <input type="hidden" id="id" name="id" value= <%= xbox.id %> />
                         <input type="hidden" id="type" name="type" value= <%= xbox.type %> />
                         <input type="hidden" id="version" name="version" value= <%= xbox.version %> />
                         <input type="hidden" id="price" name="price" value= <%= xbox.price %> />
@@ -27,7 +27,6 @@
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= xbox.stock %> <br><br>
-                       <!--  <%= xbox.info %> -->
                     </div>
                     <div class="tooltip">Mer informasjon
                       <span class="tooltiptext"><%= xbox.info %></span>

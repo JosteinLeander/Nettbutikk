@@ -17,8 +17,8 @@
                     <%= nintendo.type %> <%= nintendo.version %> <br>
                     Pris <%= nintendo.price %> Kr
                     <img id="img1" class="myimg" src= <%= nintendo.img %> alt= <%= nintendo.alt %> />
-                    <form action="/Nintendo" method="POST">
-                        <input type="hidden" id="id" name="id" value=<%= nintendo.id %>
+                    <form action="/Nintendo" method="post">
+                        <input type="hidden" id="id" name="id" value= <%= nintendo.id %> />
                         <input type="hidden" id="type" name="type" value= <%= nintendo.type %> />
                         <input type="hidden" id="version" name="version" value= <%= nintendo.version %> />
                         <input type="hidden" id="price" name="price" value= <%= nintendo.price %> />

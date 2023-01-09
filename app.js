@@ -32,7 +32,8 @@ const {
   createUserWithEmailAndPassword,
   signOut,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  prodErrorMap
 } = require('firebase/auth');
 
 // Your web app's Firebase configuration
@@ -56,23 +57,9 @@ const auth = getAuth();
 //collection ref
 const colRef = collection(db, 'produkter');
 const orderRef = collection(db, 'order');
+const roleRef = collection(db, 'rolle');
 
-/* //get collection data
-getDocs(colRef)
-  .then((snapshot) => {
-    console.log(snapshot.docs)
-  });
-
-const q = query(colRef, orderBy('sold', 'desc'));
-
-onSnapshot(q, (snapshot) => {
-    let toppListe = [];
-    snapshot.docs.forEach(doc => {
-        toppListe.push({...doc.data(), id: doc.id})
-    });
-    console.log(toppListe);
-}) */
-
+// Laget en bruker som er innloggings bruker og som jeg sender til view filene
 let bruker = "";
 
 onAuthStateChanged(auth, (user) => {
@@ -84,6 +71,8 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// Funksjon som kalles fra de forskjellige mulighetene for å legge til produkter i handlekurv
+// Laget denne for å redusere koden
 const leggTilProd = (req) => {
   let prod = req.body;
   prod.user = bruker;
@@ -97,6 +86,15 @@ const leggTilProd = (req) => {
       console.log(err);
     })
 };
+
+// Finner alle admin brukere
+let role = [];
+const qRole = query(roleRef, orderBy('admin'));
+onSnapshot(qRole, (snapshot) => {
+  snapshot.docs.forEach(doc => {
+    role.push({ ...doc.data(), id: doc.id});
+  });
+});
 
 // Query for å finne mest solgte mot db
 const q = query(colRef, orderBy('sold', 'desc'));
@@ -121,12 +119,14 @@ app.get("/", (req, res) => {
   res.render("index.ejs", { title: "Home", topSolgte: topSolgte, user: bruker });
 });
 
+// Logg ut
 app.get("/LoggUt", (req, res) => {
   bruker = "";
   signOut(auth);
   res.redirect("/");
 });
 
+// Logg inn
 app.get("/LoggInn", (req, res) => {
   res.render("LoggInn.ejs", { title: "LoggInn", user: bruker });
 });
@@ -134,12 +134,27 @@ app.get("/LoggInn", (req, res) => {
 app.post("/loggInn", (req, res) => {
   const { email, password } = req.body;
   console.log("loggInnBruker", email, password);
+  admin = 0; // Brukes for å sjekke om det er admin bruker
+
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       const token = createToken(userCredential.uid);
       res.cookie('jwt', token, {maxAge: maxAge});
-      res.redirect('/');
+
+      // Sjekker om bruker som logger inn er admin
+      role.forEach(doc => {
+        if (doc.admin == email) {
+          admin = 1;
+        }
+      });
+
+      if (admin) {
+        // Admin Bruker
+        res.redirect("/admin")
+      } else {
+        res.redirect('/');
+      }
     })
     .catch((err) => {
       const errorCode = err.code;
@@ -147,6 +162,7 @@ app.post("/loggInn", (req, res) => {
     });
 });
 
+// Legg inn ny bruker
 app.get("/NyBruker", (req, res) => {
   res.render("NyBruker.ejs", { title: "NyBruker", user: bruker });
 });
@@ -166,6 +182,7 @@ app.post("/NyBruker", (req, res) => {
     });
 });
 
+// Alle produkter
 app.get("/Products", (req, res) => {
   res.render("Products.ejs", { title: "Products", prod: topSolgte, user: bruker });
 });
@@ -284,6 +301,7 @@ app.post("/Sega", (req, res) => {
   }
 });
 
+// For å vise handlekurv med produkter og pris
 app.get("/order", async (req, res) => {
   if (bruker != '') {
     let order = [];
@@ -294,18 +312,28 @@ app.get("/order", async (req, res) => {
       order.push({ ...doc.data(), id: doc.id});
     })
 
+    let totalPris = 0;
+    for (let i = 0; i < order.length; i++) {
+      totalPris += Number(order[i].price) * Number(order[i].antall);
+    }
+
+    totalPris += 150;
+    order.totalPris = totalPris;
+
     res.render("order.ejs", { title: "Handlekurv", order: order, user: bruker });
   } else {
     res.redirect('/LoggInn');
   }
 });
 
+// For å registrere leveranse informasjon og kredittkort og fullføre kjøpet
 app.post("/credCard", (req, res) => {
-  const huh = req.body;
-  console.log("huh", huh);
+  const shopinfo = req.body;
+  console.log("Info ved kjøp:", shopinfo);
   res.redirect("/");
 });
 
+// Søk etter produkter fra søkerfelt
 app.get("/search", (req, res) => {
   const produkt = req.query.search;
   const regex = new RegExp(produkt, "i");
@@ -316,4 +344,14 @@ app.get("/search", (req, res) => {
     }
   });
   res.render("Products.ejs", { title: "Produkter", prod: result, user: bruker });
+});
+
+// Admin side
+app.get("/admin", (req, res) => {
+  res.render("admin.ejs", { title: "Admin", user: bruker });
+});
+
+// Om oss
+app.get("/AboutUs", (req, res) => {
+  res.render("AboutUs.ejs", { title: "AboutUs", user: bruker });
 });
