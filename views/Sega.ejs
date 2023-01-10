@@ -23,7 +23,7 @@
                         <input type="hidden" id="version" name="version" value= <%= sega.version %> />
                         <input type="hidden" id="price" name="price" value= <%= sega.price %> />
                         <label for="antall">Antall:</label>
-                        <input type="number" id="antall" name="antall">
+                        <input style="width: 100px" type="number" id="antall" name="antall" min="0" max= <%= sega.stock %> />
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= sega.stock %> <br><br>

@@ -23,7 +23,7 @@
                         <input type="hidden" id="version" name="version" value= <%= xbox.version %> />
                         <input type="hidden" id="price" name="price" value= <%= xbox.price %> />
                         <label for="antall">Antall:</label>
-                        <input type="number" id="antall" name="antall">
+                        <input style="width: 100px" type="number" id="antall" name="antall" min="0" max= <%= xbox.stock %> />
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= xbox.stock %> <br><br>

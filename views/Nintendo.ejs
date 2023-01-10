@@ -23,7 +23,7 @@
                         <input type="hidden" id="version" name="version" value= <%= nintendo.version %> />
                         <input type="hidden" id="price" name="price" value= <%= nintendo.price %> />
                         <label for="antall">Antall:</label>
-                        <input type="number" id="antall" name="antall">
+                        <input style="width: 100px" type="number" id="antall" name="antall" min="0" max= <%= nintendo.stock %> />
                         <button>Legg til i handlekurv</button>
                     </form>
                     <div style="font-size: 25px;">På lager: <%= nintendo.stock %> <br><br>

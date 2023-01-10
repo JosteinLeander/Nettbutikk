@@ -22,7 +22,7 @@
                 <input type="hidden" id="version" name="version" value= <%= prod.version %> />
                 <input type="hidden" id="price" name="price" value= <%= prod.price %> />
                 <label for="antall">Antall:</label>
-                <input type="number" id="antall" name="antall" />
+                <input style="width: 100px" type="number" id="antall" name="antall" min="0" max= <%= prod.stock %> />
                 <button>Legg til i handlekurv</button>
               </form>
               <div style="font-size: 25px">
