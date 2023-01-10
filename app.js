@@ -200,7 +200,7 @@ app.post("/Products", (req, res) => {
 //Playstation
 app.get("/Playstation", (req, res) => {
   const playstation = [];
-  topSolgte.forEach(doc => {
+  topSolgte.forEach(doc => {  
     if (doc.type == "Playstation") {
       playstation.push(doc);
     }
